@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GenericRepository.Implementations
 {
-    internal class Repository : IRepository
+    public abstract class Repository : IRepository
     {
         public Repository(DbContext dbContext) =>
             _dbContext = dbContext;
