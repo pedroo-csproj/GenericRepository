@@ -1,5 +1,7 @@
+using GenericRepository.Example.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,6 +19,11 @@ namespace GenericRepository.Example
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddDbContext<ApplicationDataContext>();
+
+            services.AddDbContext<ApplicationDataContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("WaifuDB")));
 
             services.AddSwaggerGen(c =>
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GenericRepository.Example", Version = "v1" }));
