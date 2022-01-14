@@ -20,6 +20,8 @@ namespace GenericRepository.Example
         {
             services.AddControllers();
 
+            services.AddDbContext<ApplicationDataContext>();
+
             services.AddDbContext<ApplicationDataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("WaifuDB")));
 
