@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace GenericRepository.Interfaces
 {
-    public interface IGenericRepository
+    public interface IRepository
     {
         Task<IEnumerable<T>> ToListAsync<T>(CancellationToken cancellationToken) where T : class;
         IEnumerable<T> ToList<T>() where T : class;
