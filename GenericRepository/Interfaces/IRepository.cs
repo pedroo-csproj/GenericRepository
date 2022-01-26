@@ -6,8 +6,8 @@ namespace GenericRepository.Interfaces
 {
     public interface IRepository
     {
-        Task<IEnumerable<T>> ToListAsync<T>(CancellationToken cancellationToken) where T : class;
-        IEnumerable<T> ToList<T>() where T : class;
+        Task<IEnumerable<T>> ToListAsync<T>(int quantity = 10, CancellationToken cancellationToken = new CancellationToken()) where T : class;
+        IEnumerable<T> ToList<T>(int quantity = 10) where T : class;
         Task<T> FindAsync<T, U>(U id, CancellationToken cancellationToken) where T : class;
         T Find<T, U>(U id) where T : class;
         Task AddAsync<T>(T entity, CancellationToken cancellationToken) where T : class;

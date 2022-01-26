@@ -14,16 +14,18 @@ namespace GenericRepository.Implementations
 
         private readonly DbContext _dbContext;
 
-        public async Task<IEnumerable<T>> ToListAsync<T>(CancellationToken cancellationToken) where T : class =>
+        public async Task<IEnumerable<T>> ToListAsync<T>(int quantity = 10, CancellationToken cancellationToken = default) where T : class =>
             await _dbContext
                 .Set<T>()
                 .AsNoTracking()
+                .Take(quantity)
                 .ToListAsync(cancellationToken);
 
-        public IEnumerable<T> ToList<T>() where T : class =>
+        public IEnumerable<T> ToList<T>(int quantity = 10) where T : class =>
             _dbContext
                 .Set<T>()
                 .AsNoTracking()
+                .Take(quantity)
                 .ToList();
 
         public async Task<T> FindAsync<T, U>(U id, CancellationToken cancellationToken) where T : class
