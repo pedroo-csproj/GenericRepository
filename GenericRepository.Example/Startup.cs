@@ -9,46 +9,45 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
-namespace GenericRepository.Example
+namespace GenericRepository.Example;
+
+public class Startup
 {
-    public class Startup
+    public Startup(IConfiguration configuration) =>
+        Configuration = configuration;
+
+    public IConfiguration Configuration { get; }
+
+    public void ConfigureServices(IServiceCollection services)
     {
-        public Startup(IConfiguration configuration) =>
-            Configuration = configuration;
+        services.AddControllers();
 
-        public IConfiguration Configuration { get; }
+        services.AddDbContext<ApplicationDataContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("WaifuDB")));
 
-        public void ConfigureServices(IServiceCollection services)
+        services.AddTransient<IWaifuRepository, WaifuRepository>();
+
+        services.AddSwaggerGen(c =>
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "GenericRepository.Example", Version = "v1" }));
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
         {
-            services.AddControllers();
+            app.UseDeveloperExceptionPage();
 
-            services.AddDbContext<ApplicationDataContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("WaifuDB")));
-
-            services.AddTransient<IWaifuRepository, WaifuRepository>();
-
-            services.AddSwaggerGen(c =>
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "GenericRepository.Example", Version = "v1" }));
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GenericRepository.Example v1"));
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
+        app.UseHttpsRedirection();
 
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GenericRepository.Example v1"));
-            }
+        app.UseRouting();
 
-            app.UseHttpsRedirection();
+        app.UseAuthorization();
 
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-                endpoints.MapControllers());
-        }
+        app.UseEndpoints(endpoints =>
+            endpoints.MapControllers());
     }
 }

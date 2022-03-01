@@ -4,66 +4,65 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
-namespace GenericRepository.Example.Controllers
+namespace GenericRepository.Example.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class WaifusController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class WaifusController : ControllerBase
+    public WaifusController(IWaifuRepository waifuRepository) =>
+        _waifuRepository = waifuRepository;
+
+    private readonly IWaifuRepository _waifuRepository;
+
+    [HttpGet]
+    public async Task<IActionResult> ToListAsync()
     {
-        public WaifusController(IWaifuRepository waifuRepository) =>
-            _waifuRepository = waifuRepository;
+        var waifus = await _waifuRepository.ToListAsync<Waifu>(default);
 
-        private readonly IWaifuRepository _waifuRepository;
+        return Ok(waifus);
+    }
 
-        [HttpGet]
-        public async Task<IActionResult> ToListAsync()
-        {
-            var waifus = await _waifuRepository.ToListAsync<Waifu>(default);
+    [HttpGet("{id}")]
+    public async Task<IActionResult> FindAsync([FromRoute] Guid id)
+    {
+        var waifu = await _waifuRepository.FindAsync<Waifu, Guid>(id, default);
 
-            return Ok(waifus);
-        }
+        if (waifu == null)
+            return NotFound();
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> FindAsync([FromRoute] Guid id)
-        {
-            var waifu = await _waifuRepository.FindAsync<Waifu, Guid>(id, default);
+        return Ok(waifu);
+    }
 
-            if (waifu == null)
-                return NotFound();
+    [HttpPost]
+    public async Task<IActionResult> AddAsync([FromBody] Waifu waifu)
+    {
+        await _waifuRepository.AddAsync(waifu, default);
+        await _waifuRepository.SaveChangesAsync(default);
 
-            return Ok(waifu);
-        }
+        return Ok();
+    }
 
-        [HttpPost]
-        public async Task<IActionResult> AddAsync([FromBody] Waifu waifu)
-        {
-            await _waifuRepository.AddAsync(waifu, default);
-            await _waifuRepository.SaveChangesAsync(default);
+    [HttpPut]
+    public async Task<IActionResult> UpdateAsync([FromBody] Waifu waifu)
+    {
+        _waifuRepository.Update(waifu);
+        await _waifuRepository.SaveChangesAsync(default);
 
-            return Ok();
-        }
+        return Ok();
+    }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateAsync([FromBody] Waifu waifu)
-        {
-            _waifuRepository.Update(waifu);
-            await _waifuRepository.SaveChangesAsync(default);
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> UpdateAsync([FromRoute] Guid id)
+    {
+        var waifu = await _waifuRepository.FindAsync<Waifu, Guid>(id, default);
 
-            return Ok();
-        }
+        if (waifu == null)
+            return NotFound();
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> UpdateAsync([FromRoute] Guid id)
-        {
-            var waifu = await _waifuRepository.FindAsync<Waifu, Guid>(id, default);
+        _waifuRepository.Update(waifu);
+        await _waifuRepository.SaveChangesAsync(default);
 
-            if (waifu == null)
-                return NotFound();
-
-            _waifuRepository.Update(waifu);
-            await _waifuRepository.SaveChangesAsync(default);
-
-            return Ok();
-        }
+        return Ok();
     }
 }

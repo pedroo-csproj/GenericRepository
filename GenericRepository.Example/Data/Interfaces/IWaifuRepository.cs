@@ -1,6 +1,6 @@
 ﻿using GenericRepository.Interfaces;
 
-namespace GenericRepository.Example.Data.Interfaces
-{
-    public interface IWaifuRepository : IRepository { }
-}
+namespace GenericRepository.Example.Data.Interfaces;
+
+public interface IWaifuRepository : IRepository
+{ }
