@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericRepository", "GenericRepository\GenericRepository.csproj", "{7CB84066-B901-43F3-81F8-A5F870DCC8FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericRepository", "GenericRepository\GenericRepository.csproj", "{7CB84066-B901-43F3-81F8-A5F870DCC8FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericRepository.Example", "GenericRepository.Example\GenericRepository.Example.csproj", "{9FF1C1D9-4D0B-417B-B3CC-A1D369AFDBA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericRepository.Example", "GenericRepository.Example\GenericRepository.Example.csproj", "{9FF1C1D9-4D0B-417B-B3CC-A1D369AFDBA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericRepository.Identity", "GenericRepository.Identity\GenericRepository.Identity.csproj", "{984D76DA-E7D4-45F2-99E7-D4D8C9452880}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{9FF1C1D9-4D0B-417B-B3CC-A1D369AFDBA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FF1C1D9-4D0B-417B-B3CC-A1D369AFDBA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FF1C1D9-4D0B-417B-B3CC-A1D369AFDBA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{984D76DA-E7D4-45F2-99E7-D4D8C9452880}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{984D76DA-E7D4-45F2-99E7-D4D8C9452880}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{984D76DA-E7D4-45F2-99E7-D4D8C9452880}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{984D76DA-E7D4-45F2-99E7-D4D8C9452880}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
