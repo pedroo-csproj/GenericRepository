@@ -2,7 +2,7 @@
 
 [![MIT License](https://img.shields.io/github/license/dotnet/aspnetcore?color=%230b0&style=flat-square)](https://github.com/pedro-octavio/GenericRepository/blob/main/LICENSE)
 
-**GenericRepository** is a library to facility the creation of repositories in **.Net** projects.
+**GenericRepository** is a library to facility the creation of repositories in **.Net** projects, if you are using IdentityDbContext, use this [library](https://github.com/pedro-octavio/GenericRepository.Identity).
 
 ## Tech
 
