@@ -18,7 +18,7 @@ public class WaifusController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> ToListAsync()
     {
-        var waifus = await _waifuRepository.ToListAsync<Waifu>(default);
+        var waifus = await _waifuRepository.ToListAsync<Waifu>(10);
 
         return Ok(waifus);
     }
